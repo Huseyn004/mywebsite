@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azerbaijani Singers</title>
+  
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Azərbaycanın Sədası</h1>
+    </header>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search for singers..." oninput="searchSingers()">
+    </div>
+
+    <div class="singer-list" id="singerList">
+        <!-- Məmmədbağır Bağırzadə -->
+        <div class="singer" data-name="məmmədbağır bağırzadə" onclick="showSongs('məmmədbağır bağırzadə')">
+            <img src="məmmədbağır.jpg" alt="Məmmədbağır Bağırzadə">
+            Məmmədbağır Bağırzadə
+        </div>
+
+        <!-- Hüseynağa Hadıyev -->
+        <div class="singer" data-name="hüseynağa hadıyev" onclick="showSongs('hüseynağa hadıyev')">
+            <img src="Hüseynağa_Hadiyev.jpg" alt="Hüseynağa Hadıyev">
+            Hüseynağa Hadıyev
+        </div>
+
+        <!-- Add more singers as needed -->
+    </div>
+
+    <div class="song-details" id="songDetails">
+        <h3 id="songTitle"></h3>
+        <p><strong>Sözləri:</strong> <span id="songLyrics"></span></p>
+        <audio controls id="songAudio">
+            <source id="audioSource" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <button onclick="goBack()">Arxaya</button> <!-- Back button -->
+    </div>
+
+    <script>
+        const songsData = {
+    "məmmədbağır bağırzadə": {
+        "Gecə yaman uzundur": {
+            lyrics: `Gözümün işığına<br>
+            Hər kiprik bir yük olur,<br>
+            Gecə yaman uzundur…<br>
+            Bəzən bir ömürdən də<br>
+            Bir gecə böyük olur,<br>
+            Gecə yaman uzundur.<br><br>
+            Xəyallar şirin-şirin,<br>
+            Xəyallar acı-acı,<br>
+            Gecə yaman uzundur.<br>
+            İndi, yəqin, yuxuda<br>
+            Xumar-xumar gülürsən,<br>
+            Eh, sən hardan biləsən,<br>
+            Gecə yaman uzundur?!..<br><br>
+            İfa: Məmmədbağır Bağırzadə <br> Söz: Fikrət Qoca <br> Musiqi: Firəngiz`,
+            audio: "Məmmədbağır Bağırzadə - Gecə Yaman Uzundur.mp3"
+        },
+        "Belə qəmli dayanma ": {
+            lyrics: `
+            Görüşünə gəlmişəm,<br>
+            Sən ey gözü bənövşə.<br>
+            Gözü nəmli dayanma,<br>
+            Belə qəmli dayanma.<br><br>
+            Səninlə dindi dünya,<br>
+            Sevin, sənindir dünya.<br>
+            Sevənlərindir dünya,<br>
+            Belə qəmli dayanma.<br><br>
+
+            Var soyuğu, var odu,<br>
+            Bu yol sevgi yoludur,<br>
+            Ürək sözlə doludur,<br>
+            Belə qəmli dayanma.<br><br>
+            Könlüm, bulud deyilsən,<br>
+            Sınıq ümid deyilsən.<br>
+            Sən ki, sükut deyilsən,<br>
+            Belə qəmli dayanma.<br><br>
+            Səsinlə dindi dünya,<br>
+            Sevin, sənindir dünya.<br>
+            Sevənlərindir dünya,<br>
+            Belə qəmli dayanma.<br><br>
+
+            Çiçək açsın üzündə,<br>
+            Günəş gülsün gözündə,<br>
+            Bir sevinc tap özündə,<br>
+            Belə qəmli dayanma.<br>
+            <br>            İfa: Məmmədbağır Bağırzadə<br>  Söz: Şamxal Rüstəm<br>  Musiqi: Taleh Hacıyev`,
+            audio: "Məmmədbağır Bağırzadə - Belə qəmli dayanma.mp3"
+        }
+    },
+    "hüseynağa hadıyev": {
+        "Sən olmuşam": {
+            lyrics: `<br>Sən coşqun dənizsən, yoxsa bir ada ?<br>
+Sən şirin nəğməsən, yoxsa bir səda ?<br>
+Odur ki, sirlərlə dolu dünyada<br>
+Tək sənin sirrini bilən olmuşam,<br>
+Sənin gülüşünə gülən olmuşam.<br>
+<br>
+Sevinən, gülən mən olmuşam<br>
+Sirrini bilən, mən olmuşam,<br>
+Mən olmuşam.<br>
+Sevinən, gülən mən olmuşam<br>
+Sirrini bilən, mən olmuşam,<br>
+Mən olmuşam.<br>
+<br>
+Pəncərəm günəşə açılır deyə,<br>
+Günəş də bənzəyir nur piyaləyə.<br>
+Dağda şəlaləyə, düzdə laləyə,<br>
+Sənin baxışınla baxan olmuşam,<br>
+Səmada ay kimi axan olmuşam.<br><br>
+
+Ay kimi axan mən olmuşam,<br>
+Yoluna baxan mən olmuşam,<br>
+Mən olmuşam. <br>
+Ay kimi axan mən olmuşam,<br>
+Yoluna baxan mən olmuşam,<br>
+Mən olmuşam. <br><br>
+
+Sən gedən yolların yolçusuyam mən,<br>
+Sən gəzən dağların ovçusuyam mən,<br>
+Sən baxan göylərin ulduzuyam mən,<br>
+Səninçün alışan, sönən olmuşam<br>
+Mən özüm deyiləm, mən sən olmuşam.<br><br>
+
+Alışan, sönən mən olmuşam<br>
+Özüm deyiləm sən olmuşam,<br>
+Sən olmuşam.<br>
+Alışan, sönən mən olmuşam<br>
+Özüm deyiləm sən olmuşam,<br>
+Sən olmuşam.<br>
+Sən olmuşam.<br>
+Sən olmuşam.<br><br>İfa: Hüseynağa Hadıyev 
+<br>Musiqi: Emin Sabitoğlu
+<br>Söz: Gəray Fəzli`,  // Include full lyrics here
+            audio: "Hüseynağa Hadıyev - Sən olmuşam.mp3"
+        }
+    }
+    // Add more songs for other singers here
+};
+
+        function searchSingers() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let singers = document.getElementsByClassName('singer');
+            
+            for (let i = 0; i < singers.length; i++) {
+                let singerName = singers[i].getAttribute('data-name');
+                if (singerName.includes(input)) {
+                    singers[i].style.display = 'block';  // Show matching singer
+                } else {
+                    singers[i].style.display = 'none';  // Hide others
+                }
+            }
+        }
+
+        function showSongs(singerName) {
+            const songs = songsData[singerName];
+            let songsList = '<h3>Musiqilər:</h3>'; // Changed to Musiqilər
+            for (let song in songs) {
+                songsList += `<div class="song" onclick="showSongDetails('${singerName}', '${song}')">${song}</div>`;
+            }
+            document.getElementById('singerList').innerHTML = songsList; // Replace singer list with song list
+            document.querySelectorAll('.song').forEach(song => song.style.display = 'block'); // Show all songs
+        }
+
+        function showSongDetails(singerName, songName) {
+            const song = songsData[singerName][songName];
+            document.getElementById('songTitle').innerText = songName;
+            document.getElementById('songLyrics').innerHTML = song.lyrics;
+            document.getElementById('audioSource').src = song.audio;
+            document.getElementById('songAudio').load(); // Reload audio
+            document.getElementById('songDetails').style.display = 'block'; // Show song details
+        }
+
+        function goBack() {
+            document.getElementById('songDetails').style.display = 'none'; // Hide song details
+            document.getElementById('searchInput').value = ''; // Clear search input
+            searchSingers(); // Show all singers
+        }
+    </script>
+
+</body>
+</html>
